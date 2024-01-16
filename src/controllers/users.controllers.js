@@ -84,14 +84,16 @@ export const deleteUserById = async (req, res) => {
 };
 
 export const updateUserById = async (req, res) => {
-  const { user_name, user_lastname, user_email, user_role } = req.body;
+  const { user_name, user_lastname, user_email, user_role, user_password } =
+    req.body;
   const { user_id } = req.params;
 
   if (
     user_name == null ||
     user_lastname == null ||
     user_email == null ||
-    user_role == null
+    user_role == null ||
+    user_password == null
   ) {
     return res
       .status(400)
@@ -105,6 +107,7 @@ export const updateUserById = async (req, res) => {
     .input("user_lastname", sql.VarChar, user_lastname)
     .input("user_email", sql.VarChar, user_email)
     .input("user_role", sql.Int, user_role)
+    .input("user_password", sql.VarChar, user_password)
     .input("user_id", sql.Int, user_id)
     .query(queries.updateUserById);
 
@@ -113,5 +116,6 @@ export const updateUserById = async (req, res) => {
     user_lastname,
     user_email,
     user_role,
+    user_password,
   });
 };
